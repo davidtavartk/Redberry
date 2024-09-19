@@ -1,11 +1,38 @@
+import { useEffect, useState } from "react";
 import AddButton from "./AddButton";
 import "./FilterPanel.sass";
+import FilterDropdown from "./FilterDropdown";
+import { getRegions } from "../api/swaggerApi";
 
 const FilterPanel = () => {
+  const [filterDropdown, setFilterDropdown] = useState(null);
+  const [regions, setRegions] = useState([]);
+  const priceOptions = ["50,000","100,000","150,000","200,000","250,000"];
+  const sizeOptions = ["50","100","150","200","250"];
+  const bedroomOptions = [1, 2, 3, 4, 5];
+
+  useEffect(() => {
+    const fetchRegions = async () => {
+      try {
+        const response = await getRegions();
+        setRegions(response.data);
+      } catch (error) {
+        console.log(error);
+        throw error
+      }
+    };
+
+    fetchRegions();
+  }, []);
+
+  const toggleDropdown = (type) => {
+    setFilterDropdown((prev) => (prev === type ? null : type));
+  };
+
   return (
     <div className="filter-panel container">
       <div className="filter-options">
-        <div className="filter-item">
+        <div className="filter-item" onClick={() => toggleDropdown("region")}>
           <span>რეგიონი</span>
           <svg
             width="10"
@@ -19,8 +46,17 @@ const FilterPanel = () => {
               fill="#021526"
             />
           </svg>
+          {filterDropdown === "region" && (
+            <FilterDropdown
+              type="region"
+              title="რეგიონის მიხედვით"
+              options={regions}
+              onClose={() => setFilterDropdown(null)}
+            />
+          )}
         </div>
-        <div className="filter-item">
+
+        <div className="filter-item" onClick={() => toggleDropdown("price")}>
           <span>საფასო კატეგორია</span>
           <svg
             width="10"
@@ -34,8 +70,17 @@ const FilterPanel = () => {
               fill="#021526"
             />
           </svg>
+          {filterDropdown === "price" && (
+            <FilterDropdown
+              type="price"
+              title="ფასის მიხედვით"
+              options={priceOptions}
+              onClose={() => setFilterDropdown(null)}
+            />
+          )}
         </div>
-        <div className="filter-item">
+
+        <div className="filter-item" onClick={() => toggleDropdown("size")}>
           <span>ფართობი</span>
           <svg
             width="10"
@@ -49,8 +94,17 @@ const FilterPanel = () => {
               fill="#021526"
             />
           </svg>
+          {filterDropdown === "size" && (
+            <FilterDropdown
+              type="size"
+              title="ფართობის მიხედვით"
+              options={sizeOptions}
+              onClose={() => setFilterDropdown(null)}
+            />
+          )}
         </div>
-        <div className="filter-item">
+
+        <div className="filter-item" onClick={() => toggleDropdown("bedrooms")}>
           <span>საძინებლების რაოდენობა</span>
           <svg
             width="10"
@@ -64,6 +118,14 @@ const FilterPanel = () => {
               fill="#021526"
             />
           </svg>
+          {filterDropdown === "bedrooms" && (
+            <FilterDropdown
+              type="bedrooms"
+              title="საძინებლების რაოდენობა"
+              options={bedroomOptions}
+              onClose={() => setFilterDropdown(null)}
+            />
+          )}
         </div>
       </div>
 

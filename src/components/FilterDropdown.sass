@@ -1,0 +1,215 @@
+.filter-dropdown
+
+    display: flex
+    flex-direction: column
+    // align-items: flex-start
+    padding: 24px
+    gap: 32px
+
+    position: absolute
+    top: 51px
+    left: 0px
+
+    background: #FFFFFF
+    border: 1px solid #DBDBDB
+    box-shadow: 5px 5px 12px rgba(2, 21, 38, 0.08)
+    border-radius: 10px
+
+    z-index: 10
+    cursor: default
+
+    .dropdown-main-content
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        gap: 24px
+
+        h2
+            font-weight: 500
+            font-size: 16px
+            color: #021526
+
+        .dropdown-content
+            display: flex
+            flex-direction: row
+            flex-wrap: wrap
+            align-items: flex-end
+            align-content: flex-start
+            padding: 0px
+            gap: 16px 50px
+
+            &.region
+                width: 679px
+                height: 128px
+
+                .region-filter-option
+                    display: flex
+                    flex-direction: row
+                    align-items: center
+                    padding: 0px
+                    gap: 8px
+
+                    width: 191px
+                    height: 20px
+
+                    input
+                        width: 20px
+                        height: 20px
+                        accent-color: #45A849
+                        border-width: 0 1px 1px 0
+                        cursor: pointer
+
+                    label
+                        height: 100%
+                        font-weight: 400
+                        font-size: 14px
+                        line-height: 17px
+                        color: #021526
+                        cursor: pointer
+
+            &.price, &.size
+                display: flex
+                flex-direction: column
+                align-items: flex-start
+                padding: 0px
+                gap: 24px
+                left: 100px
+
+                width: 334px
+
+                .prSz-option-inputs-container
+                    display: flex
+                    flex-direction: row
+                    align-items: center
+                    padding: 0px
+                    gap: 15px
+                    .input-wrapper
+                        position: relative
+                        display: flex
+                        align-items: center
+                        border: 1px solid #808A93
+                        border-radius: 6px
+
+                        input
+                            display: flex
+                            flex-direction: row
+                            justify-content: space-between
+                            align-items: center
+                            align-self: flex-start
+                            padding: 10px
+                            gap: 10px
+
+                            width: 155px
+                            height: 42px
+
+                            border-radius: 6px
+                            border: none
+                            &:focus
+                                outline: none
+                        .currency-symbol
+                            position: absolute
+                            right: 10px
+                            color: #021526
+                            pointer-events: none
+                            font-size: 14px
+                            font-weight: 400
+
+                .prsz-option-numbers
+                    display: flex
+                    flex-direction: row
+                    align-items: flex-start
+                    padding: 0px
+                    gap: 24px
+
+                    .prSz-options
+                        display: flex
+                        flex-direction: column
+                        align-items: flex-start
+                        padding: 0px
+                        gap: 16px
+
+                        width: 155px
+                        height: 150px
+                        label
+                            height: 17px
+
+                            font-weight: 500
+                            font-size: 14px
+                            line-height: 17px
+
+                            color: #021526
+
+                        .each-prSz-container
+                            display: flex
+                            flex-direction: column
+                            gap: 8px
+                            font-weight: 400
+                            font-size: 14px
+
+                            .each-prSz
+                                cursor: pointer
+                                transition: 0.1s ease
+
+                                &:hover
+                                    font-size: 15px
+
+            &.bedrooms
+                width: 216px
+                height: 36px
+
+                .bedrooms-container
+                    display: flex
+                    flex-direction: column
+                    justify-content: center
+                    align-items: center
+                    padding: 0px
+                    gap: 15px
+
+                    width: 41px
+                    height: 42px
+                    p
+                        margin-top: 25px
+                        width: 200px
+                        margin-left: 160px
+                        
+
+                    .bedrooms-input
+                        display: flex
+                        flex-direction: row
+                        justify-content: space-between
+                        align-items: center
+                        padding: 10px
+                        gap: 10px
+                        width: 100%
+                        height: 100%
+
+                        border: 1px solid #808A93
+                        border-radius: 6px
+
+                        text-align: center
+                        // color: #00000066
+
+    .dropdown-footer
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: flex-end
+        padding: 0px
+        gap: 10px
+
+        button
+            display: flex
+            flex-direction: row
+            justify-content: center
+            align-items: center
+            padding: 8px 14px
+            gap: 2px
+
+            width: 77px
+            height: 33px
+
+            background: #F93B1D
+            border-radius: 8px
+            border: none
+            color: #FFFFFF
+            cursor: pointer

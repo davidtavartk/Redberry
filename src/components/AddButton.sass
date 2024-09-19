@@ -19,12 +19,15 @@
 
     cursor: pointer
 
+    transition: background 0.3s ease, color 0.3s ease, fill 0.3s ease
+
     &.filled
         background: #F93B1D
         border: none
         &:hover
-            background: #FFFFFF
+            background: #fff7f7
             border: 1px solid #F93B1D
+            margin: -1px
             color: #F93B1D
             path
                 fill: #F93B1D
@@ -38,8 +41,9 @@
         path
             fill: #F93B1D
         &:hover
-            background: #F93B1D
+            background: #f93a1dde
             border: none
+            margin: 1px
             color: #FFFFFF
             path
                 fill: #FFFFFF

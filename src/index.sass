@@ -1,30 +1,55 @@
-* 
+*
   margin: 0
   padding: 0
   box-sizing: border-box
   font-family: 'FiraGo', sans-serif
 
+  scrollbar-width: none
+  -ms-overflow-style: none
 
-.container 
+  *::-webkit-scrollbar
+    display: none
+
+input[type="number"]
+  -moz-appearance: textfield
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button
+  -webkit-appearance: none
+  margin: 0
+
+html, body
+  width: 100vw
+  height: 100vh
+
+.app-container
+    width: 1920px
+    height: 1080px
+
+
+.container
   padding: 38px 162px
 
+@font-face
+  font-family: 'FiraGo'
+  src: url('../../FiraGo-Light.otf') format('opentype')
+  font-weight: 300
+  font-style: normal
 
-  @font-face 
-    font-family: 'FiraGo'
-    src: url('../../FiraGo-Regular.otf') format('opentype')
-    font-weight: 400
-    font-style: normal
+@font-face
+  font-family: 'FiraGo'
+  src: url('../../FiraGo-Regular.otf') format('opentype')
+  font-weight: 400
+  font-style: normal
 
-@font-face 
-    font-family: 'FiraGo'
-    src: url('../../FiraGo-Medium.otf') format('opentype')
-    font-weight: 500
-    font-style: normal
+@font-face
+  font-family: 'FiraGo'
+  src: url('../../FiraGo-SemiBold.otf') format('opentype')
+  font-weight: 500
+  font-style: normal
 
-@font-face 
-    font-family: 'FiraGo'
-    src: url('../../FiraGo-Bold.otf') format('opentype')
-    font-weight: 700
-    font-style: normal
-
-
+@font-face
+  font-family: 'FiraGo'
+  src: url('../../FiraGo-Bold.otf') format('opentype')
+  font-weight: 700
+  font-style: normal
