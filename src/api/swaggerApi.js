@@ -3,6 +3,8 @@ import axios from 'axios'
 const personalToken = "9d0096dc-8069-4e88-8d9f-ac0004474d57";
 const baseURL = "https://api.real-estate-manager.redberryinternship.ge/api/"
 
+
+// Get Methods
 export const getRealEstates = async () => {
     try {
         const response = await axios.get(`${baseURL}real-estates`, {
@@ -10,7 +12,7 @@ export const getRealEstates = async () => {
                 Authorization: `Bearer ${personalToken}`
             }
         });
-        // console.log(response);
+        console.log(response.data);
         return response;
     } catch (error) {
         console.log(error)
@@ -18,12 +20,37 @@ export const getRealEstates = async () => {
     }
 }
 
-export const getRegions = async () => {
+export const getEstateById = async (id) => {
     try {
-        const response = await axios.get(`${baseURL}regions`, {
+        const response = await axios.get(`${baseURL}real-estates/${id}`, {
             headers: {
                 Authorization: `Bearer ${personalToken}`
             }
+        });
+        // console.log("Estate by id response: ", response)
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+
+export const getRegions = async () => {
+    try {
+        const response = await axios.get(`${baseURL}regions`, {
+        })
+        // console.log(response);
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+export const getCities = async () => {
+    try {
+        const response = await axios.get(`${baseURL}cities`, {
         })
         // console.log(response);
         return response;
@@ -40,7 +67,7 @@ export const getAgents = async () => {
                 Authorization: `Bearer ${personalToken}`
             }
         })
-        console.log(response);
+        // console.log(response);
         return response;
     } catch (error) {
         console.log(error);
@@ -50,8 +77,9 @@ export const getAgents = async () => {
 getAgents();
 
 
+
+// Post requests
 export const addAgent = async (agentData) => {
-    console.log(agentData)
     try {
       const response = await axios.post(`${baseURL}agents`, agentData, {
         headers: {
@@ -65,3 +93,21 @@ export const addAgent = async (agentData) => {
       throw error;
     }
   };
+
+
+// Delete request
+
+export const deleteEstate = async (id) => {
+    try {
+        const response = await axios.delete(`${baseURL}real-estates/${id}`, {
+            headers: {
+                Authorization: `Bearer ${personalToken}`
+            }
+        });
+        console.log("Deleted with id: ", id, "Response: ", response);
+        return response;
+    } catch (error) {
+        console.log("Error deleting estate", error);
+        throw error;
+    }
+}

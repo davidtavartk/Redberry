@@ -25,7 +25,7 @@ const FilterDropdown = ({ title, type, options, onClose }) => {
   const validateLimits = () => {
     const { min, max } = selectedLimits;
     if (min && max && parseFloat(min) > parseFloat(max)) {
-      setError("Minimum value cannot be more than maximum value");
+      setError("გთხოვთ შეიყვანოთ ვალიდური რიცხვები");
       return false;
     }
     setError(null);
@@ -34,7 +34,7 @@ const FilterDropdown = ({ title, type, options, onClose }) => {
 
   const validateBedrooms = () => {
     if (selectedBedrooms <= 0) {
-      setError("Minimum value is 1")
+      setError("მინიმუმი რაოდენობა არის 1")
       return false;
     } 
     setError(null)

@@ -1,6 +1,7 @@
 const routePaths = {
     LandingPage: '/',
-    AddListingPage: '/add-listing'
+    AddListingPage: '/add-listing',
+    ListingPage: '/real-estate/:id'
   };
   
   export default routePaths;

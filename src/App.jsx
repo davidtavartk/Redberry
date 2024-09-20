@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import routePaths from "./routes/routePaths";
 import LandingPage from "./pages/LandingPage";
 import AddListingPage from "./pages/AddListingPage";
+import ListingPage from "./pages/ListingPage";
 
 function App() {
 
@@ -14,7 +15,7 @@ function App() {
         <Routes>
           <Route path={routePaths.LandingPage} element={<LandingPage />} />
           <Route path={routePaths.AddListingPage} element={<AddListingPage />} />
-
+          <Route path={routePaths.ListingPage} element={<ListingPage />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -22,6 +23,3 @@ function App() {
 }
 
 export default App
-
-
-const token = "9d0096dc-8069-4e88-8d9f-ac0004474d57"

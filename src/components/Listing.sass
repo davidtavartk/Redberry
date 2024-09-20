@@ -1,0 +1,256 @@
+.listing
+    margin-top: 110px
+    position: relative
+
+    #upload-date
+
+        display: flex
+        flex-direction: row
+        align-items: center
+        padding: 0px
+        gap: 10px
+
+        position: absolute
+        width: 266px
+        height: 19px
+        left: 735px
+        bottom: 40px
+
+        font-weight: 400
+        font-size: 16px
+        line-height: 19px
+
+        color: #808A93
+
+    .main-listing-content
+
+        display: flex
+        flex-direction: row
+        align-items: flex-start
+        padding: 0px
+        gap: 68px
+
+        margin-top: 50px
+
+    .image-container
+
+        display: flex
+        flex-direction: row
+        align-items: center
+        padding: 0px
+        gap: 10px
+
+        width: 839px
+        height: 670px
+
+        position: relative
+
+        img
+            width: 839px
+            height: 670px
+
+            background: url(image.png)
+            border-radius: 14px 14px 0px 0px
+
+    .property-status
+        display: flex
+        flex-direction: row
+        justify-content: center
+        align-items: center
+        padding: 6px
+        gap: 10px
+
+        position: absolute
+        width: 142px
+        height: 41px
+        left: 41px
+        top: 41px
+
+        background: rgba(2, 21, 38, 0.5)
+        border-radius: 20px
+
+        span
+            font-weight: 500
+            font-size: 20px
+            line-height: 24px
+            text-align: center
+            letter-spacing: 0.04em
+
+            color: #FFFFFF
+
+    .listing-details
+
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        padding: 30px 0px 0px
+        gap: 40px
+
+        width: 503px
+        height: 714px
+
+        .upper-details
+
+            display: flex
+            flex-direction: column
+            align-items: flex-start
+            padding: 0px
+            gap: 24px
+
+            h2
+
+                font-weight: 700
+                font-size: 48px
+                line-height: 58px
+                color: #021526
+
+            .listing-data
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-items: flex-start
+                padding: 0px
+                gap: 16px
+
+                span
+                    display: flex
+                    align-items: center
+                    gap: 8px
+                    font-weight: 400
+                    font-size: 24px
+                    line-height: 29px
+                    color: #808A93
+
+        .lower-details
+            display: flex
+            flex-direction: column
+            align-items: flex-start
+            padding: 0px
+            gap: 50px
+
+            width: 503px
+            height: 356px
+
+            .description
+                display: flex
+                flex-direction: column
+                align-items: flex-start
+                padding: 0px
+                gap: 20px
+
+                width: 503px
+                height: 78px
+                p
+
+                    font-weight: 400
+                    font-size: 16px
+                    line-height: 26px
+                    color: #808A93
+
+            .agent-container
+                display: flex
+                flex-direction: column
+                align-items: flex-start
+                padding: 0px
+                gap: 20px
+                position: relative
+
+                width: 503px
+                height: 228px
+                .agent
+                    box-sizing: border-box
+
+                    width: 503px
+                    height: 174px
+
+                    border: 1px solid #DBDBDB
+                    border-radius: 8px
+
+                    img
+                        position: absolute
+                        width: 72px
+                        height: 72px
+                        left: 20px
+                        top: 24px
+
+                        background: url(.jpg)
+                        border-radius: 100px
+                    h4
+                        position: absolute
+                        width: 142px
+                        height: 19px
+                        left: 106px
+                        top: 40px
+                        font-weight: 400
+                        font-size: 16px
+                        line-height: 19px
+
+                        color: #021526
+                    #agent
+                        position: absolute
+                        width: 49px
+                        height: 17px
+                        left: 106px
+                        top: 63px
+
+                        font-weight: 400
+                        font-size: 14px
+                        line-height: 17px
+
+                        color: #676E76
+                    span
+                        display: flex
+                        align-items: center
+                        gap: 5px
+                        font-weight: 400
+                        font-size: 14px
+                        line-height: 17px
+
+                        color: #808A93
+
+                    #mail
+
+                        position: absolute
+                        width: 207px
+                        height: 17px
+                        left: 20px
+                        top: 112px
+
+                    #number
+                        gap: 5px
+
+                        position: absolute
+                        width: 82.06px
+                        height: 17px
+                        left: 20px
+                        top: 133px
+
+                button
+                    display: flex
+                    flex-direction: row
+                    justify-content: center
+                    align-items: center
+                    padding: 10px
+                    gap: 10px
+
+                    border: 1px solid #676E76
+                    border-radius: 8px
+                    background-color: #fff
+
+                    color: #676E76
+                    cursor: pointer
+
+                    &:hover
+                        background-color: #676E76
+                        color: #fff
+                    &:active
+                        background-color: #767e86
+    .blur-background
+        position: fixed
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        background: rgba(0, 0, 0, 0.5)
+        backdrop-filter: blur(5px)
+

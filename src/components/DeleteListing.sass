@@ -1,0 +1,96 @@
+.delete-modal
+    position: absolute
+    width: 623px
+    height: 222px
+    left: calc(50% - 623px/2 + 0.5px)
+    top: calc(50% - 222px/2)
+
+    background: #FFFFFF
+    box-shadow: 5px 5px 12px rgba(2, 21, 38, 0.08)
+    border-radius: 20px
+
+    #success
+        color: #36c00c
+        text-align: center
+        font-size: 18px
+    p
+        position: absolute
+        width: 283px
+        height: 24px
+        left: calc(50% - 283px/2)
+        top: 58px
+
+        font-family: 'FiraGO'
+        font-style: normal
+        font-weight: 400
+        font-size: 20px
+        line-height: 24px
+
+        color: #2D3648
+
+    .delete-modal-buttons
+
+        display: flex
+        justify-content: center
+        align-items: center
+        margin-top: 130px
+        gap: 15px
+
+        .outline
+            display: flex
+            flex-direction: row
+            justify-content: center
+            align-items: center
+            padding: 10px 16px
+            gap: 2px
+
+            color: #F93B1D
+            font-weight: 500
+            font-size: 16px
+
+            width: 103px
+            height: 47px
+
+            border: 1px solid #F93B1D
+            border-radius: 10px
+            background: #fff
+
+            cursor: pointer
+
+            &:hover
+                background: #f93a1dde
+                border: none
+                color: #FFFFFF
+                &:active
+                    background: #e76551
+
+        .filled
+            display: flex
+            flex-direction: row
+            justify-content: center
+            align-items: center
+            padding: 10px 14px
+            gap: 2px
+
+            color: #fff
+            font-weight: 500
+            font-size: 16px
+
+            width: 187px
+            height: 47px
+
+            background: #F93B1D
+            border-radius: 10px
+            border: none
+
+            cursor: pointer
+
+            &:hover
+                background: #fff7f7
+                border: 1px solid #F93B1D
+                color: #F93B1D
+            path
+                fill: #F93B1D
+            &:active
+                background: #f9f9f9
+

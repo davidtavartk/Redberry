@@ -12,7 +12,7 @@ const FilterPanel = () => {
   const [regions, setRegions] = useState([]);
   const priceOptions = ["50,000", "100,000", "150,000", "200,000", "250,000"];
   const sizeOptions = ["50", "100", "150", "200", "250"];
-  const bedroomOptions = [1, 2, 3, 4, 5];
+  const bedroomOptions = [];
   const [isAgentModalOpen, setIsAgentModalOpen] = useState(false);
 
   useEffect(() => {

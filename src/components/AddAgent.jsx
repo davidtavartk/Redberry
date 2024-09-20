@@ -19,13 +19,23 @@ const AddAgent = ({ isOpen, onClose }) => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await addAgent(data);
-      console.log("Agent added:", response);
+      const formData = new FormData();
+
+      formData.append("name", data.name);
+      formData.append("surname", data.surname);
+      formData.append("email", data.email);
+      formData.append("phone", data.phone);
+      
+      formData.append("avatar", data.avatar[0]);
+  
+      const response = await addAgent(formData); 
+      // console.log("Agent added:", response);
       onClose();
     } catch (error) {
       console.error("Error adding agent:", error);
     }
   };
+  
 
   const handleEscapeKey = (e) => {
     if (e.key === "Escape") {
@@ -58,7 +68,7 @@ const AddAgent = ({ isOpen, onClose }) => {
                   type="text"
                   id="name"
                   {...register("name", {
-                    required: "Name is required",
+                    required: "სახელის შეყვანა აუცილებელია",
                     minLength: {
                       value: 2,
                       message: "მინიმუმ 2 სიმბოლო",
@@ -92,7 +102,7 @@ const AddAgent = ({ isOpen, onClose }) => {
                   type="text"
                   id="surname"
                   {...register("surname", {
-                    required: "Surname is required",
+                    required: "გვარის შეყვანა აუცილებელია",
                     minLength: {
                       value: 2,
                       message: "მინიმუმ 2 სიმბოლო",
