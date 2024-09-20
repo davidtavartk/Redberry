@@ -2,22 +2,53 @@ import "./pageStyles/AddListingPage.sass";
 import { Link } from "react-router-dom";
 import routePaths from "../routes/routePaths";
 import { useEffect, useState } from "react";
-import { getAgents, getCities, getRegions } from "../api/swaggerApi";
+import { addEstate, getAgents, getCities, getRegions } from "../api/swaggerApi";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const AddListingPage = () => {
   const [agents, setAgents] = useState([]);
   const [regions, setRegions] = useState([]);
   const [cities, setCities] = useState([]);
-  const [transactionType, setTransactionType] = useState("sale");
   const [fileName, setFileName] = useState("");
-  const [selectedRegion, setSelectedRegion] = useState("");
+  const [selectedRegionId, setSelectedRegionId] = useState("");
+
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      is_rental: "0",
+    },
+  });
+
+  const onSubmit = async (data) => {
+    try {
+      const formData = new FormData();
+
+      formData.append("address", data.address);
+      formData.append("image", data.image[0]);
+      formData.append("region_id", data.region_id);
+      formData.append("description", data.description);
+      formData.append("city_id", data.city_id);
+      formData.append("zip_code", data.zip_code);
+      formData.append("price", data.price);
+      formData.append("area", data.area);
+      formData.append("bedrooms", data.bedrooms);
+      formData.append("is_rental", data.is_rental);
+      formData.append("agent_id", data.agent_id);
+
+      const response = await addEstate(formData); 
+      console.log("Estate added!", response)
+      navigate(routePaths.LandingPage);
+
+    } catch (error) {
+      console.error("Error adding agent:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchAgents = async () => {
@@ -27,10 +58,6 @@ const AddListingPage = () => {
       } catch (error) {
         console.error("Error fetching agents:", error);
       }
-    };
-
-    const handleRegionChange = (e) => {
-      setSelectedRegion(e.target.value);
     };
 
     const fetchRegions = async () => {
@@ -56,16 +83,22 @@ const AddListingPage = () => {
     fetchCities();
   }, []);
 
-  const handleTransactionChange = (e) => {
-    setTransactionType(e.target.value);
-  };
-
   const handleFileChange = (e) => {
-    setFileName(e.target.files[0]?.name || "");
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 1024 * 1024) { // 1MB in bytes
+        alert("ატვირთეთ 1MB-ზე ნაკლები ზომის ფოტო");
+        e.target.value = ""; // Clear the file input
+        setFileName("");
+      } else {
+        setFileName(file.name);
+      }
+    }
   };
 
-  const onSubmit = async (data) => {
-    
+  const handleRegionChange = (e) => {
+    const regionId = parseInt(e.target.value);
+    setSelectedRegionId(regionId);
   };
 
   return (
@@ -79,20 +112,16 @@ const AddListingPage = () => {
             <label>
               <input
                 type="radio"
-                name="transactionType"
-                value="sale"
-                checked={transactionType === "sale"}
-                onChange={handleTransactionChange}
+                value="0"
+                {...register("is_rental")}
               />
               იყიდება
             </label>
             <label>
               <input
                 type="radio"
-                name="transactionType"
-                value="rent"
-                checked={transactionType === "rent"}
-                onChange={handleTransactionChange}
+                value="1"
+                {...register("is_rental")}
               />
               ქირავდება
             </label>
@@ -107,7 +136,6 @@ const AddListingPage = () => {
                 <label>მისამართი *</label>
                 <input
                   type="text"
-                  name="address"
                   placeholder="მისამართი"
                   {...register("address", {
                     required: "მისამართის შეყვანა აუცილებელია",
@@ -138,7 +166,7 @@ const AddListingPage = () => {
                     : "მინიმუმ ორი სიმბოლო"}
                 </p>
               </div>
-              
+
               {/* Zip Code */}
               <div className="form-field">
                 <label>საფოსტო ინდექსი *</label>
@@ -181,41 +209,45 @@ const AddListingPage = () => {
               <div className="form-field">
                 <label>რეგიონი</label>
                 <select
-                  {...register("region", {
+                  {...register("region_id", {
                     required: "რეგიონის არჩევა აუცილებელია",
+                    onChange: (e) => handleRegionChange(e),
                   })}
+                  value={selectedRegionId}
                 >
-                  <option value="">აირჩიეთ რეგიონი</option>
+                  <option value="" disabled>
+                    აირჩიეთ რეგიონი
+                  </option>
                   {regions.map((region) => (
                     <option key={region.id} value={region.id}>
                       {region.name}
                     </option>
                   ))}
                 </select>
-                {errors.region && (
-                  <p style={{ color: "red" }}>{errors.region.message}</p>
+                {errors.region_id && (
+                  <p style={{ color: "red" }}>{errors.region_id.message}</p>
                 )}
               </div>
-              <div className="form-field">
-                <label>ქალაქი</label>
-                <select
-                  {...register("city", {
-                    required: "ქალაქის არჩევა აუცილებელია",
-                  })}
-                >
-                  <option value="">აირჩიეთ ქალაქი</option>
-                  {cities.map((city) => (
-                    <option key={city.id} value={city.id}>
-                      {city.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+
+              {selectedRegionId != "" && (
+                <div className="form-field">
+                  <label>ქალაქი</label>
+                  <select
+                    {...register("city_id", {
+                      required: "ქალაქის არჩევა აუცილებელია",
+                    })}
+                  >
+                    {cities
+                      .filter((city) => city.region_id === selectedRegionId)
+                      .map((city) => (
+                        <option key={city.id} value={city.id}>
+                          {city.name}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              )}
             </div>
-
-
-
-
           </div>
         </div>
 
@@ -271,7 +303,7 @@ const AddListingPage = () => {
                     isNumber: (value) =>
                       /^\d+$/.test(value) || "მხოლოდ რიცხვები",
                     maxDigits: (value) =>
-                      value.length <= 12 || "მაქსიმუმ 12 სიმბოლო",
+                      value.length <= 10 || "მაქსიმუმ 10 სიმბოლო",
                   },
                 })}
               />
@@ -306,6 +338,7 @@ const AddListingPage = () => {
                 required: "საძინებლების რაოდენობის შეყვანა აუცილებელია",
                 validate: {
                   isNumber: (value) => /^\d+$/.test(value) || "მხოლოდ რიცხვები",
+                  maxValue: (value) => value <= 50 || "საძინებლების რაოდენობა უნდა იყოს 50-ზე ნაკლები",
                 },
               })}
             />
@@ -376,7 +409,7 @@ const AddListingPage = () => {
               <input
                 type="file"
                 id="photo"
-                {...register("avatar", {
+                {...register("image", {
                   required: "სურათის ატვირთვა აუცილებელია",
                   onChange: handleFileChange,
                 })}
@@ -411,8 +444,8 @@ const AddListingPage = () => {
               </div>
             </label>
             {fileName && <p>ჩატვირთული ფოტო: {fileName}</p>}
-            {errors.avatar && (
-              <p style={{ color: "red" }}>{errors.avatar.message}</p>
+            {errors.image && (
+              <p style={{ color: "red" }}>{errors.image.message}</p>
             )}
           </div>
 
@@ -422,9 +455,8 @@ const AddListingPage = () => {
             <div className="form-field">
               <label>აირჩიე</label>
               <select
-                {...register("agent", {
-                  required: "აგენტის არჩევა აუცილებელია",
-                  onChange: handleFileChange,
+                {...register("agent_id", {
+                  required: "აგენტის არჩევა აუცილებელია"
                 })}
               >
                 <option value="">აირჩიეთ აგენტი</option>
@@ -434,8 +466,8 @@ const AddListingPage = () => {
                   </option>
                 ))}
               </select>
-              <p style={{ color: errors.agent ? "red" : "inherit" }}>
-                {errors.agent ? errors.agent.message : ""}
+              <p style={{ color: errors.agent_id ? "red" : "inherit" }}>
+                {errors.agent_id ? errors.agent_id.message : ""}
               </p>
             </div>
           </div>

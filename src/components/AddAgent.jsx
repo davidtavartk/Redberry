@@ -14,7 +14,16 @@ const AddAgent = ({ isOpen, onClose }) => {
   } = useForm();
 
   const handleFileChange = (e) => {
-    setFileName(e.target.files[0]?.name || "");
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 1024 * 1024) { // 1MB in bytes
+        alert("ატვირთეთ 1MB-ზე ნაკლები ზომის ფოტო");
+        e.target.value = ""; // Clear the file input
+        setFileName("");
+      } else {
+        setFileName(file.name);
+      }
+    }
   };
 
   const onSubmit = async (data) => {

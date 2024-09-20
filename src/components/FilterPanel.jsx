@@ -146,7 +146,7 @@ const FilterPanel = () => {
 
       {isAgentModalOpen && (
         <>
-          <div className="blur-background" />
+          <div className="blur-background" onClick={toggleAgentModal}/>
           <AddAgent isOpen={isAgentModalOpen} onClose={toggleAgentModal} />
         </>
       )}

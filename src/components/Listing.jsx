@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import routePaths from "../routes/routePaths";
 import { formatDate } from "../utils/formatDate";
 import DeleteListing from "./DeleteListing";
+import { formatPhoneNumber } from "../utils/formatPhoneNumber";
 
 const Listing = ({ estateId }) => {
   const [estate, setEstate] = useState(null);
@@ -186,7 +187,7 @@ const Listing = ({ estateId }) => {
                       strokeLinejoin="round"
                     />
                   </svg>
-                  {estate?.agent?.phone}
+                  {formatPhoneNumber(estate?.agent?.phone)}
                 </span>
               </div>
 
@@ -201,7 +202,7 @@ const Listing = ({ estateId }) => {
 
       {isDeleteModalOpen && (
         <>
-          <div className="blur-background" />
+          <div className="blur-background" onClick={toggleDeleteModal}/>
           <DeleteListing isOpen={isDeleteModalOpen} onClose={toggleDeleteModal} estateId = {estateId} />
         </>
       )}
