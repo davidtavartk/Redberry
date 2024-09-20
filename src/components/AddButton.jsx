@@ -1,9 +1,9 @@
 import "./AddButton.sass";
 
 // eslint-disable-next-line react/prop-types
-const AddButton = ({ filled, children }) => {
+const AddButton = ({ filled, children, onClick }) => {
   return (
-    <button className={`add-button ${filled ? "filled" : "outline"}`}>
+    <button className={`add-button ${filled ? "filled" : "outline"}`} onClick={onClick}>
       <svg
         width="22"
         height="23"

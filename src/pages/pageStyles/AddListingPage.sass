@@ -1,0 +1,324 @@
+.add-listing
+    margin: 100px auto
+    width: 790px
+
+    h1
+        font-weight: 500
+        font-size: 32px
+        line-height: 38px
+        color: #021526
+        text-align: center
+        margin-top: 160px
+
+    a
+        text-decoration: none
+
+    h2
+        font-weight: 500
+        font-size: 16px
+        line-height: 20px
+        text-transform: uppercase
+        color: #1A1A1F
+    p
+        font-size: 14px
+        color: #021526
+        svg
+            margin-right: 10px
+
+    .add-listing-content
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        padding: 0px
+        gap: 80px
+        margin-top: 50px
+
+        .form-group
+            label
+                font-size: 14px
+
+        .radio-group
+            display: flex
+            flex-direction: column
+            gap: 20px
+
+            .radio-group-inner
+                display: flex
+                gap: 100px
+                color: #021526
+                font-size: 14px
+                label
+                    display: flex
+                    align-items: center
+                    gap: 10px
+                    input[type="radio"]
+                        appearance: none
+                        width: 16px
+                        height: 16px
+                        border: 1px solid #021526
+                        border-radius: 50%
+                        position: relative
+
+                        &:checked
+                            background-color: #fff
+
+                        &:checked::before
+                            content: ''
+                            width: 8px
+                            height: 8px
+                            background-color: #021526
+                            border-radius: 50%
+                            position: absolute
+                            top: 50%
+                            left: 50%
+                            transform: translate(-50%, -50%)
+
+        .location-group
+            display: flex
+            flex-direction: column
+            align-items: flex-start
+            padding: 0px
+            gap: 20px
+
+            .location-inputs
+
+                display: flex
+                flex-direction: column
+                align-items: flex-start
+                padding: 0px
+                gap: 22px
+
+                .address-group
+                    display: flex
+                    flex-direction: row
+                    align-items: flex-start
+                    padding: 0px
+                    gap: 20px
+
+                    width: 790px
+                    height: 85px
+
+                .form-field
+                    display: flex
+                    flex-direction: column
+                    align-items: flex-start
+                    padding: 0px
+                    gap: 6px
+
+                    width: 384px
+                    height: 83px
+
+                    label
+                        font-weight: 500
+
+                    input
+                        box-sizing: border-box
+
+                        display: flex
+                        flex-direction: row
+                        justify-content: space-between
+                        align-items: center
+                        padding: 10px
+                        gap: 10px
+
+                        width: 384px
+                        height: 42px
+
+                        border: 1px solid #808A93
+                        border-radius: 6px
+
+            .dropdown-group
+                display: flex
+                flex-direction: row
+                align-items: flex-start
+                padding: 0px
+                gap: 20px
+
+                width: 790px
+                height: 85px
+
+                select
+                    box-sizing: border-box
+
+                    display: flex
+                    flex-direction: row
+                    justify-content: space-between
+                    align-items: center
+                    padding: 10px
+                    gap: 10px
+
+                    width: 384px
+                    height: 42px
+
+                    border: 1px solid #808A93
+                    border-radius: 6px
+
+        .form-section
+            display: flex
+            flex-direction: column
+            align-items: flex-start
+            padding: 0px
+            gap: 20px
+
+            width: 790px
+            height: 553px
+            .input-group
+                display: flex
+                flex-direction: row
+                align-items: center
+                padding: 0px
+                gap: 20px
+            .input-container
+
+                display: flex
+                flex-direction: column
+                align-items: flex-start
+                padding: 0px
+                gap: 5px
+
+                label
+                    font-weight: 500
+
+                input
+                    display: flex
+                    flex-direction: row
+                    justify-content: space-between
+                    align-items: center
+                    padding: 10px
+                    gap: 10px
+
+                    width: 384px
+                    height: 42px
+
+                    border: 1px solid #808A93
+                    border-radius: 6px
+
+            .description
+                textarea
+                    width: 790px
+                    height: 135px
+                    border-radius: 6px
+                    padding: 8px
+                    resize: none
+            .custom-file-upload
+                display: flex
+                align-items: center
+                justify-content: center
+
+                background: #FFFFFF
+                border: 1px dashed #2D3648
+                border-radius: 8px
+
+                // // border: 1px dashed black
+                // border-radius: 6px
+                // background-image: linear-gradient(to right, black 33%, rgba(255,255,255,0) 0%)
+                // // background-position: bottom
+                // background-size: 10px 1px
+                // background-repeat: repeat-x
+
+                width: 790px
+                height: 120px
+                cursor: pointer
+
+                input
+                    display: none
+
+        .agent-section
+            display: flex
+            flex-direction: column
+            align-items: flex-start
+            padding: 0px
+            gap: 15px
+            position: relative
+            .form-field
+                display: flex
+                flex-direction: column
+                align-items: flex-start
+                gap: 5px
+
+                width: 384px
+                height: 64px
+                select
+                    display: flex
+                    flex-direction: row
+                    justify-content: space-between
+                    align-items: center
+                    padding: 10px
+                    gap: 10px
+
+                    width: 384px
+                    height: 42px
+
+                    border: 1px solid #808A93
+                    border-radius: 6px
+
+
+
+        .action-buttons
+
+            display: flex
+            flex-direction: row
+            justify-content: flex-end
+            margin: 150px 0 100px auto
+            gap: 15px
+
+            .outline
+                display: flex
+                flex-direction: row
+                justify-content: center
+                align-items: center
+                padding: 10px 16px
+                gap: 2px
+
+                color: #F93B1D
+                font-weight: 500
+                font-size: 16px
+
+                width: 103px
+                height: 47px
+
+                border: 1px solid #F93B1D
+                border-radius: 10px
+                background: #fff
+
+                cursor: pointer
+
+                &:hover
+                    background: #f93a1dde
+                    border: none
+                    margin: 1px
+                    color: #FFFFFF
+                    // path
+                    //     fill: #FFFFFF
+                &:active
+                    background: #e76551
+
+            .filled
+                display: flex
+                flex-direction: row
+                justify-content: center
+                align-items: center
+                padding: 10px 14px
+                gap: 2px
+
+                color: #fff
+                font-weight: 500
+                font-size: 16px
+
+                width: 187px
+                height: 47px
+
+                background: #F93B1D
+                border-radius: 10px
+                border: none
+
+                cursor: pointer
+
+                &:hover
+                    background: #fff7f7
+                    border: 1px solid #F93B1D
+                    color: #F93B1D
+                path
+                    fill: #F93B1D
+                &:active
+                    background: #f9f9f9

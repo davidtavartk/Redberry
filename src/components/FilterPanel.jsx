@@ -3,13 +3,17 @@ import AddButton from "./AddButton";
 import "./FilterPanel.sass";
 import FilterDropdown from "./FilterDropdown";
 import { getRegions } from "../api/swaggerApi";
+import routePaths from "../routes/routePaths";
+import { Link } from "react-router-dom";
+import AddAgent from "./AddAgent";
 
 const FilterPanel = () => {
   const [filterDropdown, setFilterDropdown] = useState(null);
   const [regions, setRegions] = useState([]);
-  const priceOptions = ["50,000","100,000","150,000","200,000","250,000"];
-  const sizeOptions = ["50","100","150","200","250"];
+  const priceOptions = ["50,000", "100,000", "150,000", "200,000", "250,000"];
+  const sizeOptions = ["50", "100", "150", "200", "250"];
   const bedroomOptions = [1, 2, 3, 4, 5];
+  const [isAgentModalOpen, setIsAgentModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchRegions = async () => {
@@ -18,7 +22,7 @@ const FilterPanel = () => {
         setRegions(response.data);
       } catch (error) {
         console.log(error);
-        throw error
+        throw error;
       }
     };
 
@@ -27,6 +31,10 @@ const FilterPanel = () => {
 
   const toggleDropdown = (type) => {
     setFilterDropdown((prev) => (prev === type ? null : type));
+  };
+
+  const toggleAgentModal = () => {
+    setIsAgentModalOpen(prevState => !prevState);
   };
 
   return (
@@ -130,9 +138,18 @@ const FilterPanel = () => {
       </div>
 
       <div className="add-buttons">
-        <AddButton filled={true}>ლისტინგის დამატება</AddButton>
-        <AddButton filled={false}>აგენტის დამატება</AddButton>
+        <Link to={routePaths.AddListingPage}>
+          <AddButton filled={true}>ლისტინგის დამატება</AddButton>
+        </Link>
+        <AddButton filled={false} onClick={toggleAgentModal}>აგენტის დამატება</AddButton>
       </div>
+
+      {isAgentModalOpen && (
+        <>
+          <div className="blur-background" />
+          <AddAgent isOpen={isAgentModalOpen} onClose={toggleAgentModal} />
+        </>
+      )}
     </div>
   );
 };

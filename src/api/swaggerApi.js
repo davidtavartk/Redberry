@@ -25,6 +25,21 @@ export const getRegions = async () => {
                 Authorization: `Bearer ${personalToken}`
             }
         })
+        // console.log(response);
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+export const getAgents = async () => {
+    try {
+        const response = await axios.get(`${baseURL}agents`, {
+            headers: {
+                Authorization: `Bearer ${personalToken}`
+            }
+        })
         console.log(response);
         return response;
     } catch (error) {
@@ -32,3 +47,21 @@ export const getRegions = async () => {
         throw error;
     }
 }
+getAgents();
+
+
+export const addAgent = async (agentData) => {
+    console.log(agentData)
+    try {
+      const response = await axios.post(`${baseURL}agents`, agentData, {
+        headers: {
+          Authorization: `Bearer ${personalToken}`,
+        }
+      });
+      console.log("AXIOS REQUEST", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error adding agent:", error);
+      throw error;
+    }
+  };
