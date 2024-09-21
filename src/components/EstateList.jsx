@@ -37,32 +37,32 @@ const EstateList = () => {
     const selectedRegions = selectedFilters.regions;
   
     // Initialize match variables to false
-    let matchesPrice = false;
-    let matchesSize = false;
-    let matchesBedrooms = false;
-    let matchesRegion = false;
+    let matchesPrice = true; // Assume true unless filters are applied
+    let matchesSize = true;  // Assume true unless filters are applied
+    let matchesBedrooms = true; // Assume true unless filters are applied
+    let matchesRegion = true; // Assume true unless filters are applied
   
-    // Check if any filters are selected
-    const hasAnyFilter = selectedRegions.length > 0 || minPrice || maxPrice || minSize || maxSize || bedrooms;
+    // Check if localStorage has any relevant filters
+    const localStorageRegions = JSON.parse(localStorage.getItem('selectedRegions')) || [];
+    const localStorageLimits = JSON.parse(localStorage.getItem('selectedLimits')) || {};
+    const localStorageBedrooms = JSON.parse(localStorage.getItem('selectedBedrooms')) || null;
+  
+    // Use localStorage values if they exist
+    const regionsToCheck = localStorageRegions.length > 0 ? localStorageRegions : selectedRegions;
+    const priceLimits = Object.keys(localStorageLimits).length > 0 ? localStorageLimits : selectedFilters.price;
+    const selectedBedroomsCount = localStorageBedrooms !== null ? localStorageBedrooms : bedrooms;
   
     // Filter by regions
-    if (selectedRegions.length > 0) {
-      matchesRegion = selectedRegions.includes(estate.city.region.name);
-    } else if (hasAnyFilter) {
-      matchesRegion = false;
-    } else {
-      matchesRegion = true;
+    if (regionsToCheck.length > 0) {
+      matchesRegion = regionsToCheck.includes(estate.city.region.name);
     }
   
     // Filter by price
-    if (minPrice || maxPrice) {
+    const { min: localMinPrice, max: localMaxPrice } = priceLimits;
+    if (localMinPrice || localMaxPrice) {
       matchesPrice =
-        (!minPrice || estate.price >= minPrice) &&
-        (!maxPrice || estate.price <= maxPrice);
-    } else if (hasAnyFilter) {
-      matchesPrice = false;
-    } else {
-      matchesPrice = true;
+        (!localMinPrice || estate.price >= localMinPrice) &&
+        (!localMaxPrice || estate.price <= localMaxPrice);
     }
   
     // Filter by size
@@ -70,24 +70,17 @@ const EstateList = () => {
       matchesSize =
         (!minSize || estate.area >= minSize) &&
         (!maxSize || estate.area <= maxSize);
-    } else if (hasAnyFilter) {
-      matchesSize = false;
-    } else {
-      matchesSize = true;
     }
   
     // Filter by bedrooms
-    if (bedrooms) {
-      matchesBedrooms = estate.bedrooms === parseInt(bedrooms);
-    } else if (hasAnyFilter) {
-      matchesBedrooms = false;
-    } else {
-      matchesBedrooms = true;
+    if (selectedBedroomsCount) {
+      matchesBedrooms = estate.bedrooms === parseInt(selectedBedroomsCount);
     }
   
-    // Return true if estate matches any of the filters
-    return matchesPrice || matchesSize || matchesBedrooms || matchesRegion;
+    // Return true if estate matches all filters
+    return matchesPrice && matchesSize && matchesBedrooms && matchesRegion;
   });
+  
   
 
   if (loading) {

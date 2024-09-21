@@ -11,7 +11,7 @@ export const getRealEstates = async () => {
         Authorization: `Bearer ${personalToken}`,
       },
     });
-    console.log(response.data);
+    // console.log(response.data);
     return response;
   } catch (error) {
     console.log(error);

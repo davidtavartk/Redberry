@@ -5,13 +5,73 @@ import "./Filters.sass";
 const Filters = () => {
   const dispatch = useDispatch();
   const selectedFilters = useSelector((state) => state.filters.selectedFilters);
-  
+
+  const localRegions =
+    JSON.parse(localStorage.getItem("selectedRegions")) || [];
+  const localLimits = JSON.parse(localStorage.getItem("selectedLimits")) || {
+    price: {},
+    size: {},
+  };
+  const localBedrooms = localStorage.getItem("selectedBedrooms");
+
+  const hasFilters =
+    localRegions.length > 0 ||
+    localLimits.price.min !== undefined ||
+    localLimits.price.max !== undefined ||
+    localLimits.size.min !== undefined ||
+    localLimits.size.max !== undefined ||
+    (localBedrooms && localBedrooms > 0) ||
+    selectedFilters.regions.length > 0 ||
+    selectedFilters.price.min !== "" ||
+    selectedFilters.price.max !== "" ||
+    selectedFilters.size.min !== "" ||
+    selectedFilters.size.max !== "" ||
+    selectedFilters.bedrooms;
+
   const handleDeleteFilter = (type, value) => {
     dispatch(removeFilter({ type, value }));
+
+    if (type === "region") {
+      const updatedRegions = selectedFilters.regions.filter(
+        (region) => region !== value
+      );
+
+      if (updatedRegions.length === 0) {
+        localStorage.removeItem("selectedRegions");
+      } else {
+        localStorage.setItem("selectedRegions", JSON.stringify(updatedRegions));
+      }
+    }
+
+    if (type === "price") {
+      const limits = JSON.parse(localStorage.getItem("selectedLimits")) || {
+        price: {},
+        size: {},
+      };
+      limits.price = {};
+      localStorage.setItem("selectedLimits", JSON.stringify(limits));
+    }
+
+    // Handle size limits
+    if (type === "size") {
+      const limits = JSON.parse(localStorage.getItem("selectedLimits")) || {
+        price: {},
+        size: {},
+      };
+      limits.size = {};
+      localStorage.setItem("selectedLimits", JSON.stringify(limits));
+    }
+
+    if (type === "bedrooms") {
+      localStorage.removeItem("selectedBedrooms");
+    }
   };
 
   const handleClearFilters = () => {
     dispatch(clearFilters());
+    localStorage.removeItem("selectedRegions");
+    localStorage.removeItem("selectedLimits");
+    localStorage.removeItem("selectedBedrooms");
   };
 
   const createFilterButton = (label, key, type, value) => (
@@ -47,8 +107,16 @@ const Filters = () => {
   const renderButtons = () => {
     const buttons = [];
 
-    // Region buttons
-    selectedFilters.regions.forEach((region) => {
+    const localRegions =
+      JSON.parse(localStorage.getItem("selectedRegions")) || [];
+    const localBedrooms = localStorage.getItem("selectedBedrooms");
+
+    const regionsToDisplay =
+      selectedFilters.regions.length > 0
+        ? selectedFilters.regions
+        : localRegions;
+
+    regionsToDisplay.forEach((region) => {
       buttons.push(createFilterButton(region, region, "region", region));
     });
 
@@ -77,11 +145,14 @@ const Filters = () => {
     }
 
     // Bedrooms filter button
-    if (selectedFilters.bedrooms) {
-      const isPlural = selectedFilters.bedrooms > 1 ? "s" : "";
+    const bedrooms =
+      selectedFilters.bedrooms ||
+      (localBedrooms ? parseInt(localBedrooms) : null);
+    if (bedrooms) {
+      const isPlural = bedrooms > 1 ? "s" : "";
       buttons.push(
         createFilterButton(
-          `${selectedFilters.bedrooms} Bedroom${isPlural}`,
+          `${bedrooms} Bedroom${isPlural}`,
           "bedrooms",
           "bedrooms",
           null
@@ -95,7 +166,13 @@ const Filters = () => {
   return (
     <div className="filters">
       <div className="filters-selected">{renderButtons()}</div>
-      <p onClick={handleClearFilters}>გასუფთავება</p>
+      {hasFilters ? (
+        <p onClick={handleClearFilters}>გასუფთავება</p>
+      ) : (
+        <p onClick={handleClearFilters} style={{ display: "none" }}>
+          გასუფთავება
+        </p>
+      )}
     </div>
   );
 };

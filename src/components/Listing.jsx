@@ -234,55 +234,67 @@ const Listing = ({ estateId }) => {
           <p>გამოქვეყნების თარიღი {formatDate(estate?.created_at)}</p>
         </span>
         <h3 id="apartments">ბინები მსგავს ლოკაციაზე</h3>
-        <div className="carousel-container">
-          <Swiper
-            ref={swiperRef}
-            spaceBetween={30}
-            slidesPerView={4}
-            loop={true}
-            pagination={{ clickable: true }}
-          >
-            {allEstates
-              .filter((carEstate) => carEstate.city.region_id === regionId && carEstate.id != estateId)
-              .map((carEstate) => (
-                <SwiperSlide key={carEstate.id}>
-                  <Link
-                    to={routePaths.ListingPage.replace(":id", carEstate.id)}
-                  >
-                    <EstateItem estate={carEstate} />
-                  </Link>
-                </SwiperSlide>
-              ))}
-          </Swiper>
-          <div className="my-button-prev" onClick={handlePrev}>
-            <svg
-              width="30"
-              height="30"
-              viewBox="0 0 30 30"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+
+        {allEstates.filter(
+          (carEstate) =>
+            carEstate.city.region_id === regionId && carEstate.id != estateId
+        ) < 1 ? (
+          <p id="nothing-available">No Estates In This Region</p>
+        ) : (
+          <div className="carousel-container">
+            <Swiper
+              ref={swiperRef}
+              spaceBetween={30}
+              slidesPerView={4}
+              loop={true}
+              pagination={{ clickable: true }}
             >
-              <path
-                d="M15.8839 24.6339C15.3957 25.122 14.6043 25.122 14.1161 24.6339L5.36612 15.8839C4.87796 15.3957 4.87796 14.6043 5.36612 14.1161L14.1161 5.36612C14.6043 4.87796 15.3957 4.87796 15.8839 5.36612C16.372 5.85427 16.372 6.64573 15.8839 7.13388L9.26777 13.75L23.75 13.75C24.4404 13.75 25 14.3096 25 15C25 15.6904 24.4404 16.25 23.75 16.25H9.26777L15.8839 22.8661C16.372 23.3543 16.372 24.1457 15.8839 24.6339Z"
-                fill="#021526"
-              />
-            </svg>
+              {allEstates
+                .filter(
+                  (carEstate) =>
+                    carEstate.city.region_id === regionId &&
+                    carEstate.id != estateId
+                )
+                .map((carEstate) => (
+                  <SwiperSlide key={carEstate.id}>
+                    <Link
+                      to={routePaths.ListingPage.replace(":id", carEstate.id)}
+                    >
+                      <EstateItem estate={carEstate} />
+                    </Link>
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+            <div className="my-button-prev" onClick={handlePrev}>
+              <svg
+                width="30"
+                height="30"
+                viewBox="0 0 30 30"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15.8839 24.6339C15.3957 25.122 14.6043 25.122 14.1161 24.6339L5.36612 15.8839C4.87796 15.3957 4.87796 14.6043 5.36612 14.1161L14.1161 5.36612C14.6043 4.87796 15.3957 4.87796 15.8839 5.36612C16.372 5.85427 16.372 6.64573 15.8839 7.13388L9.26777 13.75L23.75 13.75C24.4404 13.75 25 14.3096 25 15C25 15.6904 24.4404 16.25 23.75 16.25H9.26777L15.8839 22.8661C16.372 23.3543 16.372 24.1457 15.8839 24.6339Z"
+                  fill="#021526"
+                />
+              </svg>
+            </div>
+            <div className="my-button-next" onClick={handleNext}>
+              <svg
+                width="30"
+                height="30"
+                viewBox="0 0 30 30"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M14.1161 5.36612C14.6043 4.87796 15.3957 4.87796 15.8839 5.36612L24.6339 14.1161C25.122 14.6043 25.122 15.3957 24.6339 15.8839L15.8839 24.6339C15.3957 25.122 14.6043 25.122 14.1161 24.6339C13.628 24.1457 13.628 23.3543 14.1161 22.8661L20.7322 16.25H6.25C5.55964 16.25 5 15.6904 5 15C5 14.3096 5.55964 13.75 6.25 13.75H20.7322L14.1161 7.13388C13.628 6.64573 13.628 5.85427 14.1161 5.36612Z"
+                  fill="#021526"
+                />
+              </svg>
+            </div>
           </div>
-          <div className="my-button-next" onClick={handleNext}>
-            <svg
-              width="30"
-              height="30"
-              viewBox="0 0 30 30"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.1161 5.36612C14.6043 4.87796 15.3957 4.87796 15.8839 5.36612L24.6339 14.1161C25.122 14.6043 25.122 15.3957 24.6339 15.8839L15.8839 24.6339C15.3957 25.122 14.6043 25.122 14.1161 24.6339C13.628 24.1457 13.628 23.3543 14.1161 22.8661L20.7322 16.25H6.25C5.55964 16.25 5 15.6904 5 15C5 14.3096 5.55964 13.75 6.25 13.75H20.7322L14.1161 7.13388C13.628 6.64573 13.628 5.85427 14.1161 5.36612Z"
-                fill="#021526"
-              />
-            </svg>
-          </div>
-        </div>
+        )}
 
         {isDeleteModalOpen && (
           <>
